@@ -1,0 +1,45 @@
+name: Specification ambiguity
+description: Two correct implementations could read the specification differently
+labels: ["spec"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        The specification is the contract. If it can be read two ways, that is a defect in its
+        own right, whatever the implementations happen to do. This is the most useful kind of
+        issue this repository can receive.
+
+  - type: input
+    id: section
+    attributes:
+      label: Section
+      description: Which part of docs/SPEC.md
+      placeholder: "§2 Canonical serialization"
+    validations:
+      required: true
+
+  - type: textarea
+    id: readings
+    attributes:
+      label: The two readings
+      description: State both, as precisely as you can. Bytes are better than prose.
+      placeholder: |
+        Reading A: ...
+        Reading B: ...
+        They differ when: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: divergence
+    attributes:
+      label: An input where they produce different digests
+      description: >-
+        A record, or the canonical bytes, plus the hash each reading produces. If you have not
+        got that far, say so, the ambiguity is still worth reporting.
+      render: text
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Which reading you think is right, and why

@@ -1,0 +1,57 @@
+name: Verifier defect
+description: The reference implementation or the CLI behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        If the defect is that a **modified** record verifies, or an **unmodified** one fails,
+        please stop and use a private security advisory instead. See SECURITY.md.
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: What you ran
+      description: The exact command, and the receipt or record if you can share it.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened
+      placeholder: |
+        Expected: VERIFIED
+        Got: PENDING, with "the anchoring transaction was not found at this commitment"
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      placeholder: "node --version"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      options:
+        - reference/judge.mjs
+        - reference/receipt.mjs
+        - bin/judge-verify.mjs
+        - scripts (lint, links, secret scan)
+        - not sure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: hygiene
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have not included credentials, private keys, or anything identifying a filer
+          required: true

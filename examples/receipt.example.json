@@ -1,0 +1,97 @@
+{
+  "format": "judge-report-proof/1",
+  "generatedAt": "2026-01-06T09:00:00.000Z",
+  "generatedBy": "example fixture, generated from the reference implementation",
+  "report": {
+    "number": 3,
+    "publicId": "JDG-0003",
+    "filedAt": "2026-01-05T08:02:19.000Z",
+    "url": "https://thejudgeproject.com/#report-3",
+    "redacted": false
+  },
+  "canonicalString": "public_no=3\nfiled_at=2026-01-05T08:02:19.000Z\nsubject_raw=ExampleWalletAddress1111111111111111111111\nsubject_type=address\naddress=ExampleWalletAddress1111111111111111111111\nproject=\ntwitter=\ntelegram=\nassociated=\ntitle=Wallet drained a liquidity pool\nfacts=Liquidity was removed in a single transaction shortly after listing.\nincident_type=rug\nvector=liquidity\nhindsight=[\"unlocked LP\"]\namount_sol=88\nincident_date=2026-01-02\ntx_sig=\nstill_active=0",
+  "canonicalFields": [
+    "public_no",
+    "filed_at",
+    "subject_raw",
+    "subject_type",
+    "address",
+    "project",
+    "twitter",
+    "telegram",
+    "associated",
+    "title",
+    "facts",
+    "incident_type",
+    "vector",
+    "hindsight",
+    "amount_sol",
+    "incident_date",
+    "tx_sig",
+    "still_active"
+  ],
+  "fingerprint": {
+    "algorithm": "SHA-256, UTF-8 input, lowercase hex output",
+    "contentHash": "eb75975161b3fe1356d3d7cc683a92c6cb9936c0cbd231325193fc11577f454b",
+    "previousChainHash": "1650ad897ccc3f7d5009f6e35976bb63637af5af819998714a6ea48e85273102",
+    "chainHash": "d284bc5337dc3ed038c27ed6ee3be44f7f4fb17f4fd5139677b56a45e118f998",
+    "chainRule": "chainHash = SHA256(previousChainHash + contentHash)"
+  },
+  "responses": [],
+  "attestation": {
+    "format": "judge-attestation/1",
+    "algorithm": "ECDSA P-256 with SHA-256, signature as base64url of the raw r||s pair",
+    "statement": "judge-attestation/1\npublic_no=3\nfiled_at=2026-01-05T08:02:19.000Z\nprev_hash=1650ad897ccc3f7d5009f6e35976bb63637af5af819998714a6ea48e85273102\ncontent_hash=eb75975161b3fe1356d3d7cc683a92c6cb9936c0cbd231325193fc11577f454b\nchain_hash=d284bc5337dc3ed038c27ed6ee3be44f7f4fb17f4fd5139677b56a45e118f998",
+    "signature": "iF1EP3Z0aRIC5dodGNqZDxgI27scx7oNgtQnF627QvGtoYnP1C0Vy4wkcA6_Zj8fiDGnMqbmHtyNZFfbf9fIOg",
+    "publicKey": {
+      "kty": "EC",
+      "x": "WC16jAdJ1GaCgZBjJbA3FOY4_XxzPvqomuzSGEReYnU",
+      "y": "8MNL8fTlUKjpp-omRr3oOuLXo3BHGbQX0sR4bQFSPWk",
+      "crv": "P-256"
+    },
+    "publicKeyAlsoAt": "https://thejudgeproject.com, /api/settings, as attest_key",
+    "note": "JUDGE signed this the moment the report was recorded. If a different version of this report is ever anchored, this statement contradicts it and anyone can prove that without asking JUDGE anything."
+  },
+  "batch": {
+    "merkleRoot": "18d1b9f6c4743a934ed383699bf2564ea2275df508df704b7328011f2afacd07",
+    "count": 5,
+    "firstPublicNo": 1,
+    "lastPublicNo": 5,
+    "recordingTransaction": null,
+    "recordingSlot": null,
+    "cluster": "mainnet-beta"
+  },
+  "merkleProof": {
+    "root": "18d1b9f6c4743a934ed383699bf2564ea2275df508df704b7328011f2afacd07",
+    "leaf": "d284bc5337dc3ed038c27ed6ee3be44f7f4fb17f4fd5139677b56a45e118f998",
+    "path": [
+      {
+        "side": "R",
+        "hash": "468e37834232cb364216064058f38d67cf007d1c51195e3ffb3e16c3b405eae9"
+      },
+      {
+        "side": "L",
+        "hash": "7c918461940c7d87fa8ede0cfb4ecc4755a1a840f0cf5cedfb7536488619e3f7"
+      },
+      {
+        "side": "R",
+        "hash": "26a56eabeb23e76ac105299f9bdf1084e07e18fe0b5c749a927d52e4e22456e8"
+      }
+    ]
+  },
+  "howToVerify": [
+    "1. Recompute the content fingerprint: SHA-256 of canonicalString, as UTF-8 bytes. It must equal fingerprint.contentHash.",
+    "2. Recompute the chain fingerprint: SHA-256 of (previousChainHash + contentHash), the two hex strings joined with nothing between them. It must equal fingerprint.chainHash.",
+    "3. For each response, repeat both steps with its own canonicalString, starting from its previousHash.",
+    "4. If merkleProof is present, start from leaf = SHA-256 of (0x00 byte + chainHash). Walk the path: for each step, node = SHA-256 of (0x01 byte + left + right), where the step’s hash is on the right when side is \"R\". The result must equal merkleProof.root.",
+    "5. If batch.recordingTransaction is present, read that transaction on Solana yourself and confirm the root it records equals merkleProof.root. This is the only step that does not depend on JUDGE.",
+    "6. If attestation is present, rebuild attestation.statement from the fields above and check attestation.signature against attestation.publicKey. That signature was made at filing time and does not depend on any batch existing.",
+    "bin/judge-verify.mjs in the JUDGE repository does steps 1 to 4 and step 6 offline: node bin/judge-verify.mjs <this file>"
+  ],
+  "limits": [
+    "This file proves what the report said when it was downloaded. It does not prove the report is true.",
+    "Steps 1 to 4 compare JUDGE’s own values with each other. They catch a report that has been changed since this file was made.",
+    "Step 6 is what covers the gap before a batch is recorded: a signature JUDGE cannot take back, held by you rather than by us.",
+    "Only step 5 is independent of JUDGE and of this file, and it needs a recording transaction to exist."
+  ]
+}

@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/thejudgeproject/judge/security/advisories/new
+    about: >-
+      Anything that would let a modified record verify, an unmodified record fail, or an anchor
+      be forged. Private until we publish it together. Please do not open a public issue for it.
+  - name: Report the content of an entry in the archive
+    url: https://thejudgeproject.com
+    about: >-
+      This repository is the specification and the verifier. Disputes about what a report claims
+      belong on the site, where the named party can respond on the record.

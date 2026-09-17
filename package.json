@@ -1,0 +1,42 @@
+{
+  "name": "judge-verify",
+  "version": "1.0.0",
+  "description": "Reference implementation of the JUDGE record format, receipt format and verification procedure",
+  "type": "module",
+  "main": "reference/judge.mjs",
+  "exports": {
+    ".": "./reference/judge.mjs",
+    "./receipt": "./reference/receipt.mjs"
+  },
+  "bin": {
+    "judge-verify": "bin/judge-verify.mjs"
+  },
+  "files": [
+    "reference",
+    "bin",
+    "docs",
+    "examples"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "lint": "node scripts/lint.mjs",
+    "lint:fix": "node scripts/lint.mjs --fix",
+    "links": "node scripts/check-links.mjs",
+    "scan": "node scripts/secret-scan.mjs",
+    "scan:history": "node scripts/secret-scan.mjs --history",
+    "verify": "node bin/judge-verify.mjs",
+    "check": "npm run lint && npm run links && npm run scan && npm test"
+  },
+  "keywords": [
+    "solana",
+    "merkle-tree",
+    "hash-chain",
+    "tamper-evident",
+    "transparency-log",
+    "verifiable-records"
+  ],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

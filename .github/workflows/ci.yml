@@ -1,0 +1,93 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # A dependency that was clean on merge is not clean forever.
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The whole history. A credential deleted in the latest commit is still a credential
+          # if it is sitting in an earlier one, and that is the mistake this job exists to catch.
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with: { node-version: '20' }
+      - run: node scripts/secret-scan.mjs --history
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '20' }
+      - run: node scripts/lint.mjs
+
+  links:
+    name: documentation links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '20' }
+      - run: node scripts/check-links.mjs
+
+  test:
+    name: tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '${{ matrix.node }}' }
+      - run: npm test
+
+  examples:
+    name: worked examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '20' }
+      # The valid receipt must come back PENDING (exit 2): sealed and chained, not yet anchored.
+      # Claiming more than that would be the bug this checks for.
+      #
+      # `|| code=$?` rather than a bare call: the step runs under `bash -e`, so a non-zero
+      # exit would end the step before the comparison ever ran.
+      - name: valid receipt is PENDING, not VERIFIED
+        run: |
+          code=0
+          node bin/judge-verify.mjs examples/receipt.example.json || code=$?
+          test "$code" -eq 2
+      # The tampered twin must come back ALTERED (exit 1).
+      - name: tampered receipt is ALTERED
+        run: |
+          code=0
+          node bin/judge-verify.mjs examples/receipt.tampered.json || code=$?
+          test "$code" -eq 1
+
+  audit:
+    name: dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '20' }
+      # This package has no dependencies by design, so there is no committed lockfile and
+      # `npm audit` has nothing to read. The lockfile is generated here, from package.json,
+      # and audited: today that is an empty tree, and the day a dependency is added it is not.
+      - run: npm install --package-lock-only --no-audit --no-fund
+      - run: npm audit --audit-level=moderate
