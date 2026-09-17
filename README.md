@@ -10,8 +10,8 @@ JUDGE is a public record for crypto. Look up who you're dealing with, report you
 respond publicly if you're named in a report.
 
 Each report is screened for manipulation, sealed with a unique fingerprint, linked to the
-record, anchored on-chain, and independently verified. This is the specification for that, a
-dependency-free implementation of it, and the tests that hold both to it.
+record, anchored on-chain, and independently verified. This repository contains the normative
+specification of that process, a dependency-free implementation, and its test suite.
 
 [thejudgeproject.com](https://thejudgeproject.com)
 
@@ -23,7 +23,7 @@ dependency-free implementation of it, and the tests that hold both to it.
 | [reference/](reference/) | The implementation. No dependencies |
 | [bin/judge-verify.mjs](bin/judge-verify.mjs) | Verify a receipt offline, or against an RPC endpoint you choose |
 | [examples/](examples/) | A valid receipt and a tampered twin, with real digests |
-| [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) | Disclosure process; what is worth contributing |
+| [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) | Disclosure process and contribution guidelines |
 
 ---
 
@@ -129,9 +129,10 @@ content_hash=<64 hex>
 chain_hash=<64 hex>
 ```
 
-ECDSA P-256 over SHA-256, signature as base64url of the raw `r‖s` pair. It does not make
-rewriting impossible; it makes rewriting provable by whoever was rewritten. A compromised key
-signs from that moment on, and cannot unsign a statement already downloaded.
+ECDSA P-256 over SHA-256, signature as base64url of the raw `r‖s` pair. This does not prevent
+rewriting; it makes rewriting detectable by any holder of a prior receipt. A compromised key
+produces valid signatures from the point of compromise onward, and cannot invalidate a
+signature already issued.
 
 ## Independent verification
 
@@ -150,7 +151,8 @@ Step 4 onward takes nothing from JUDGE. Receipts carry the same material, so the
 the archive.
 
 `PENDING` and `NOT_ANCHORED` are distinct outcomes and must stay distinct. Reporting a failure
-as pending hides a negative; reporting pending as failure cries wolf on every unanchored batch.
+as pending conceals a negative result; reporting pending as failure produces a false negative
+on every batch that has not been anchored yet.
 
 ## Admission control
 
@@ -164,9 +166,9 @@ public API:    none of the above, ever
 hold/refusal:  byte-identical wording
 ```
 
-Guarantees documented, not rules: a message naming the rule is a free oracle. Public
-cryptography gets stronger under review, which is why [SPEC.md](docs/SPEC.md) is exhaustive. An
-abuse heuristic only gets weaker.
+Guarantees are documented, rules are not: a response that identifies the rule it triggered is
+an oracle. Public cryptography benefits from review, which is why [SPEC.md](docs/SPEC.md) is
+exhaustive; an abuse heuristic does not.
 
 ## Guarantees and limits
 
@@ -221,9 +223,9 @@ const outcome = await verifyReceipt(receipt, {
 // → { result: 'VERIFIED' | 'ALTERED' | 'PENDING' | 'NOT_ANCHORED' | 'REDACTED', checks: [...] }
 ```
 
-`reference/judge.mjs` resolves Web Crypto from `globalThis` or, on Node 18, from `node:crypto`.
-It was written from the specification rather than extracted from the application: agreement
-between the two is then evidence that the specification is unambiguous.
+`reference/judge.mjs` resolves Web Crypto from `globalThis`, falling back to `node:crypto` on
+Node 18. It was written from the specification rather than extracted from the application, so
+agreement between the two indicates the specification is unambiguous.
 
 ## Development
 
@@ -236,8 +238,8 @@ npm run check     # all four, in CI order
 ```
 
 CI gates on all of it: secret scan over full history, lint, link check, tests on Node 18, 20 and
-22, the worked examples, and a dependency audit. Dependency-free by design, including the
-tooling.
+22, the worked examples, and a dependency audit. The tooling has no dependencies, consistent
+with `reference/`.
 
 ## Reporting a vulnerability
 
@@ -250,8 +252,10 @@ does not name, or distinguishing a hold from a refusal.
 
 The application, its migrations and operational configuration; authentication internals, session
 handling and administrative functions; the admission layer's signals, weights and thresholds;
-infrastructure identifiers. Everything needed to check the record without trusting us is here.
-Everything whose only use is attacking or cloning the service is not.
+infrastructure identifiers.
+
+The boundary is consistent: material required to verify a record independently is published;
+material whose only application is attacking or reproducing the service is not.
 
 ## License
 

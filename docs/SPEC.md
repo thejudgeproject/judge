@@ -145,8 +145,8 @@ publisher's public key and a Solana RPC endpoint.
 8. Compare the memo's root to the batch root. Equal → **VERIFIED**. Otherwise → **ALTERED**.
 
 An implementation MUST distinguish **PENDING** from **NOT ANCHORED**. Reporting a failure as
-"pending" hides a real negative; reporting pending as a failure cries wolf on every batch that
-has simply not been anchored yet. Every ambiguous outcome MUST resolve toward the smaller true
+"pending" conceals a real negative; reporting pending as a failure produces a false negative on
+every batch that has not been anchored yet. Every ambiguous outcome MUST resolve toward the smaller true
 statement, never toward an unearned confirmation.
 
 ## 9. Attestation

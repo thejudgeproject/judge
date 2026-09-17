@@ -23,8 +23,7 @@ anything that identifies a real person first.
 | fix or a dated plan | within 30 days for anything we can reproduce |
 | credit | yours unless you would rather not be named |
 
-We will tell you plainly if we think a report is not a vulnerability, and why. We would rather
-disagree with you in writing than quietly ignore you.
+If we assess a report as not a vulnerability, we will say so and give the reasoning.
 
 ## In scope, and interesting to us
 

@@ -8,8 +8,7 @@ disagreement seriously.
 
 - Argue with the work. Attacks on the design are the most valuable thing anyone can bring here,
   and finding a flaw is a contribution, not an insult.
-- Be precise. "This is wrong" plus the input that demonstrates it is worth more than a page of
-  argument.
+- Be precise. A claim plus the input that demonstrates it is more useful than argument alone.
 - Assume the other person read the specification and reached a different conclusion honestly,
   until you have reason to think otherwise.
 - Accept a "no". Not every proposal fits the line this project draws between what is public and
@@ -32,8 +31,7 @@ disagreement seriously.
 Raise a concern through a
 [private security advisory](https://github.com/thejudgeproject/judge/security/advisories/new) on
 this repository. That channel is private, and it is the only private channel this project
-operates. We do not publish a contact address, because an address published next to a project
-about accusations attracts exactly what you would expect.
+operates. No contact address is published, given the nature of the archive.
 
 Anything that has to be escalated beyond this repository can be reported to GitHub directly
 under their own policies.

@@ -137,7 +137,7 @@ if (HISTORY) {
       catch { /* binary or removed */ }
     }
   }
-  /* Author identity is metadata, and metadata doxxes as readily as content. */
+  /* Commit metadata identifies a person as directly as file content, so it is scanned too. */
   try {
     const who = execSync('git log --all --format="%an <%ae>|%cn <%ce>"', { cwd: ROOT }).toString();
     for (const line of new Set(who.trim().split('\n').filter(Boolean))) {

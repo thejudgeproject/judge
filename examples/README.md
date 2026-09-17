@@ -46,8 +46,8 @@ node bin/judge-verify.mjs examples/receipt.tampered.json
 
 The difference between the two files is `single transaction` becoming `eleven transactions`
 inside `canonicalString`. Every hash, the merkle root, the path and the signature are byte for
-byte identical between them. That is the property worth seeing demonstrated: the fingerprint
-does not have to be told what changed.
+byte identical between them. The fingerprint detects the change without being told where to
+look.
 
 Exit codes: `0` verified · `1` altered or not anchored · `2` pending · `3` usage error.
 

@@ -38,7 +38,7 @@ cannot edit a submission, and it cannot be probed, because held and refused subm
 byte-identical wording. Its output never appears on any public endpoint.
 
 It is a mitigation, not a guarantee. A patient, well-resourced and well-distributed campaign is
-not solved by any automated check, and we do not claim otherwise.
+not defeated by any automated check.
 
 ### A3. An impostor responding as the reported party
 
@@ -70,9 +70,9 @@ architecture can solve for someone determined to be specific.
 
 Could return a fabricated transaction. Mitigated by the reader choosing the endpoint; the RPC
 is configuration, not a constant. Not mitigated for a reader who uses the default and is fully
-MITM'd, which is stated in SPEC §10 rather than glossed.
+MITM'd. Recorded in SPEC §11.
 
-## Limits, stated plainly
+## Limits
 
 1. **Head truncation.** Drop the last N records and the head together and the survivors still
    chain. Only an on-chain root closes this, and only for the range it covers.

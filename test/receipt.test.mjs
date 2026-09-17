@@ -27,7 +27,7 @@ test('the example receipt passes every offline check', async () => {
   const out = await verifyReceipt(GOOD);
   const failed = out.checks.filter((c) => !c.ok);
   assert.deepEqual(failed, [], 'no check should fail');
-  assert.equal(out.result, RESULT.PENDING, 'offline, with no anchor, the honest answer is PENDING');
+  assert.equal(out.result, RESULT.PENDING, 'no anchor and no network: PENDING is the only supportable result');
 });
 
 test('a receipt with no anchoring transaction is PENDING, never VERIFIED', async () => {

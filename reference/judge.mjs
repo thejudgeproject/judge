@@ -3,7 +3,7 @@
  *
  * Written from docs/SPEC.md rather than extracted from the JUDGE application. If this and the
  * production implementation agree, they agree because the specification is unambiguous, which
- * is the property worth being able to demonstrate.
+ * indicates the specification is unambiguous.
  *
  * No dependencies. Runs on Node 18+ and in any browser with Web Crypto.
  */

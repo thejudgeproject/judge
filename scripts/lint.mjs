@@ -85,9 +85,7 @@ for (const file of files) {
   }
 
   /* ---- house punctuation ------------------------------------------------------------- */
-  /* No em dashes anywhere. They are the single most recognisable tell of text nobody wrote
-     by hand, and this project's writing is meant to read as its own. A comma, a colon or a
-     full stop always does the job. */
+  /* House style: no em dashes. A comma, a colon or a full stop covers every use. */
   text.split('\n').forEach((l, i) => {
     if (isSelf) return;
     if (l.includes('\u2014')) note(file, i + 1, 'em dash', 'use a comma, a colon or a full stop');

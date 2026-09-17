@@ -125,8 +125,8 @@ try {
     publisherKey,
   });
 } catch (err) {
-  /* A verifier that cannot reach an endpoint has learned nothing, and must not round that
-     down to a pass or up to a failure of the record itself. */
+  /* A transport failure is not a verdict on the record. Exit 3 (usage/environment) rather
+     than 0 or 1, so callers do not read it as either outcome. */
   process.stderr.write(`\n  the check could not be completed: ${err.message}\n\n`);
   process.exit(3);
 }

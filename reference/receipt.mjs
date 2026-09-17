@@ -4,7 +4,7 @@
  * A receipt is the file a reader can download beside any report. It carries the exact bytes
  * that were hashed, the hashes themselves, the batch and merkle path if one exists, and the
  * attestation signature made at filing time. Everything needed to check the record is in it,
- * which is the point: a saved receipt stays checkable after the archive is gone.
+ * so a saved receipt remains verifiable if the archive becomes unavailable.
  *
  * This module verifies one without contacting JUDGE. The only optional network call is to a
  * Solana RPC endpoint the caller chooses, to read the anchoring transaction.
@@ -52,9 +52,9 @@ export function attestationString({ publicNo, filedAt, prevHash, contentHash: ch
 /**
  * ECDSA P-256 over SHA-256, signature as base64url of the raw r‖s pair.
  *
- * What this is worth, precisely: it does not make rewriting impossible, it makes rewriting
- * provable by whoever was rewritten. A stolen key can sign new statements from that moment
- * on; it cannot reach back and unsign one already downloaded.
+ * This does not prevent rewriting; it makes rewriting detectable by any holder of a prior
+ * receipt. A compromised key produces valid signatures from the point of compromise onward,
+ * and cannot invalidate a signature already issued.
  */
 export async function verifyAttestation(statement, signatureB64url, publicKeyJwk) {
   if (!statement || !signatureB64url || !publicKeyJwk) return false;

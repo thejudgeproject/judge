@@ -22,7 +22,7 @@ cd judge
 npm run check
 ```
 
-`npm run check` is the whole gate, in the order CI runs it:
+`npm run check` runs the full gate, in the order CI runs it:
 
 | command | what it does |
 |---|---|
@@ -50,7 +50,7 @@ SCAN_FORBIDDEN="the-value" npm run scan
 - `npm run check` must pass, and new behaviour arrives with a test.
 - **No dependencies in `reference/`.** It must stay readable end to end and runnable anywhere.
   The same applies to `scripts/` and `bin/`: a repository arguing that you should not have to
-  trust it is a poor place to add several hundred transitive packages.
+  audited alongside it, which defeats the purpose.
 - **The specification is normative.** If the code and the spec disagree, fix whichever is wrong,
   but say which one you decided was wrong and why.
 - **A format change is a new version, not an edit.** Records already sealed under
@@ -58,13 +58,13 @@ SCAN_FORBIDDEN="the-value" npm run scan
 - Do not add a claim to the README that the tests do not demonstrate.
 - Nothing identifying goes in a commit: no personal name, personal email, local path, or
   machine name, in the diff or in the author line. CI checks the author line as well as the
-  content, because metadata identifies a person as readily as a file does.
+  content: commit metadata identifies a person as directly as a file does.
 
 ## Style
 
 Whatever the linter accepts. Beyond that: comments explain *why*, not *what*, the code already
-says what it does. A comment that would have saved the next reader ten minutes is worth more
-than three that restate the line above them.
+says what it does. Prefer one comment that explains a non-obvious decision over several that
+restate the code.
 
 ## What this repository is not
 

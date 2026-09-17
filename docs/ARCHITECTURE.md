@@ -256,14 +256,13 @@ Its boundary is public even though its rules are not:
 | probe resistance | held and refused submissions return byte-identical wording |
 | on-chain | nothing it produces is ever anchored |
 
-**Why the rules are not published.** Public cryptography gets stronger under review. That is
-why [SPEC.md](SPEC.md) is exhaustive and the reference implementation exists. An abuse
-heuristic gets weaker the moment it is described, because describing it is describing how to
-pass it. The distinction is a standard one and we would rather state it than pretend this
-repository is complete.
+**Why the rules are not published.** Public cryptography benefits from review, which is why
+[SPEC.md](SPEC.md) is exhaustive and the reference implementation exists. An abuse heuristic
+does not: describing it describes how to pass it. The asymmetry is standard practice and is
+stated here rather than left implicit.
 
-**What it is not.** It is a mitigation, not a guarantee. A patient, well-resourced, genuinely
-distributed campaign is not solved by any automated check, and we do not claim it is.
+**Scope.** This is a mitigation, not a guarantee. A distributed campaign with sufficient
+resources and patience is not defeated by any automated check.
 
 ---
 
@@ -376,7 +375,7 @@ Write paths a person drives: `POST /api/reports` (file), `POST /api/reports/:no/
 
 Administrative endpoints exist, require authentication, and are not documented here or anywhere
 public. Their shape is not part of the security model, since the record's integrity does not
-depend on them being secret, but publishing a map of them serves an attacker and nobody else.
+depend on them being secret, but an enumerated map of them has no defensive value.
 
 ---
 
@@ -391,9 +390,9 @@ depend on them being secret, but publishing a map of them serves an attacker and
 | browser → RPC | a read the reader initiates | the RPC endpoint, which is why it is configurable |
 | receipt → any verifier | a file | SHA-256, ed25519, and the chain's own history |
 
-The residual risk, stated plainly: a reader who runs the verifier the archive served them is
+The residual risk: a reader who runs the verifier the archive served them is
 trusting that delivery. Receipts and this repository exist to remove exactly that dependency,
-and [SPEC §10](SPEC.md#11-trust-assumptions) records it rather than glossing it.
+and it is recorded in [SPEC §11](SPEC.md#11-trust-assumptions).
 
 ---
 
